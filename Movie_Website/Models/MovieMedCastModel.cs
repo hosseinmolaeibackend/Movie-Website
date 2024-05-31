@@ -12,8 +12,8 @@ namespace Movie_Website.Models
         public int CastId { get; set; }
 
 
-        public CastModel CastModel { get; set; }
-        public MovieModel Movie { get; set; }
+        public CastModel CastModel { get; set; } = default!;
+		public MovieModel Movie { get; set; } = default!;
 
-    }
+	}
 }

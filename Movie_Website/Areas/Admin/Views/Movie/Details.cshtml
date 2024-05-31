@@ -1,0 +1,18 @@
+﻿@model MovieModel
+
+<h2 class="p-2">@Model.MovieTitle</h2>
+
+<div class="ps-3 ms-3">
+    <p class="text-justify p-3 w-75">
+        @Html.Raw(Model.MovieDescription)
+    </p>
+
+    <p class=" text-bold">
+        Author: @Model.Author
+    </p>
+
+    <a href="@Model.Url" class="btn btn-sm btn-outline-info" target="_blank">@Model.Url</a><br />
+
+    <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@Model.MovieId" class="btn btn-warning">Edit</a>
+</div>
+

@@ -7,11 +7,11 @@ namespace Movie_Website.Models
         [Key]
         public int CastId { get; set; }
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Bio { get; set; }
-        public int Age { get; set; }
+        public string Name { get; set; } = default!;
+		[Required]
+        public string Bio { get; set; } = default!;
+		public int Age { get; set; }
 
-        ICollection<MovieMedCastModel> Medies { get; set; }
-    }
+        ICollection<MovieMedCastModel> Medies { get; set; } = default!;
+	}
 }

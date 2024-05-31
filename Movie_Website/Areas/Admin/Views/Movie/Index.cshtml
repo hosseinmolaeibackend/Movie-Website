@@ -1,0 +1,53 @@
+﻿@model List<MovieModel>
+
+@{
+    ViewData["Title"] = "View";
+}
+<a asp-area="Admin" asp-controller="Movie" asp-action="Create" class="btn btn-outline-success ms-4">Create</a>
+<table class="table table-hover ps-2">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Author</th>
+            <th scope="col">Link</th>
+            <th scope="col">Utilities</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.MovieId</th>
+                <td>@item.MovieTitle</td>
+                <td>@item.Author</td>
+                <td>@item.Url</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Movie" asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-outline-primary">Details</a>
+                    <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@item.MovieId" class="btn btn-outline-warning">Edit</a>
+                    <a onclick="deleteItem(@item.MovieId)" class="btn btn-outline-danger">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Script {
+    <script>
+    function deleteItem(id) {
+        $.ajax({
+            url: '/Admin/Movie/Delete/' + id,
+            type: 'POST',
+            success: function (result) {
+                if (result.success) {
+                    console.info("success")
+                } 
+                else {
+                    console.error("NoT requierd")
+                }
+            }
+        });
+    }
+    </script>
+}

@@ -12,7 +12,7 @@ namespace Movie_Website.Models
         public int CategoryId { get; set; }
 
 
-        public CategoryModel Category { get; set; }
-        public MovieModel Movie { get; set; }
-    }
+        public CategoryModel Category { get; set; } = default!;
+		public MovieModel Movie { get; set; } = default!;
+	}
 }

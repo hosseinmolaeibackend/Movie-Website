@@ -1,0 +1,24 @@
+﻿@model MovieViewModel
+@{
+    var a = 1;
+}
+
+<form asp-area="Admin" asp-controller="Movie" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="MovieTitle" class="form-label">MovieTitle</label>
+        <input asp-for="MovieTitle" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Author" class="form-label">Author</label>
+        <input asp-for="Author" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Url" class="form-label">Url</label>
+        <input asp-for="Url" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="MovieDescription" class="form-label">MovieDescription</label>
+        <textarea id="tiny" asp-for="MovieDescription" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-success"> Create </button>
+</form>

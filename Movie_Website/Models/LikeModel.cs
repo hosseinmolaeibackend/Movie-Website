@@ -12,8 +12,8 @@ namespace Movie_Website.Models
         public int UserId { get; set; }
 
 
-        public UserModel User { get; set; }
-        public MovieModel Movie { get; set; }
+        public UserModel User { get; set; } = default!;
+		public MovieModel Movie { get; set; } = default!;
 
-    }
+	}
 }

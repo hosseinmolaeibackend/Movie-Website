@@ -183,7 +183,6 @@ namespace Movie_Website.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MovieId");

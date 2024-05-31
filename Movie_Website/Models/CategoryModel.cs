@@ -7,8 +7,8 @@ namespace Movie_Website.Models
         [Key]
         public int CategoryId { get; set; }
         [Required]
-        public string GenerName { get; set; }
+        public string GenerName { get; set; } = default!;
 
-        ICollection<GenerModel> Generes { get; set; }
-    }
+		ICollection<GenerModel> Generes { get; set; } = default!;
+	}
 }

@@ -8,14 +8,14 @@ namespace Movie_Website.Models
         public int MovieId { get; set; }
         [Required]
         [MaxLength(255)]
-        public string MovieTitle { get; set; }
+        public string MovieTitle { get; set; } = default!;
+		[Required]
+        public string MovieDescription { get; set; } = default!;
         [Required]
-        public string MovieDescription { get; set; }
-        [Required]
-        public string Author { get; set; }
-        public string Url { get; set; }
+        public string Author { get; set; } = default!;
+		public string? Url { get; set; }
 
 
-        ICollection<MovieMedCastModel> MovieMedCasts { get; set; }
-    }
+        ICollection<MovieMedCastModel> MovieMedCasts { get; set; } = default!;
+	}
 }
