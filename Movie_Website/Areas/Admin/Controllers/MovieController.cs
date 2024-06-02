@@ -7,9 +7,6 @@ namespace Movie_Website.Areas.Admin.Controllers
 {
     public class MovieController(ApplicationContext context) : AdminBaseController
     {
-
-
-
         // GET: MovieController
         public ActionResult Index()
         {

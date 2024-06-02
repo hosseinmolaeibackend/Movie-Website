@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Movie_Website.AppContext;
 
@@ -11,6 +12,20 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("defult"));
 });
 
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    option.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    option.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(option =>
+{
+    option.LoginPath = "/login";
+    option.LogoutPath = "/logout";
+    option.ExpireTimeSpan = TimeSpan.FromDays(10);
+    option.SlidingExpiration = true;
+
+});
 
 var app = builder.Build();
 

@@ -28,10 +28,10 @@ namespace Movie_Website.Controllers
 			return PartialView();
 		}
 
-		public IActionResult Videos()
-		{
-			return PartialView();
-		}
+		//public IActionResult Videos()
+		//{
+		//	return PartialView();
+		//}
 
 		//public IActionResult vbv()
 		//{

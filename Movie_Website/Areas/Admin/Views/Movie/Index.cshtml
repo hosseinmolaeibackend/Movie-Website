@@ -17,7 +17,7 @@
     <tbody>
         @foreach(var item in Model)
         {
-            <tr>
+            <tr id="@item.MovieId">
                 <th scope="row">@item.MovieId</th>
                 <td>@item.MovieTitle</td>
                 <td>@item.Author</td>
@@ -42,6 +42,7 @@
             success: function (result) {
                 if (result.success) {
                     console.info("success")
+                    $("#" + id).fadeOut();
                 } 
                 else {
                     console.error("NoT requierd")
