@@ -23,6 +23,6 @@ namespace Movie_Website.ViewModel
         public string ConfirmPassword { get; set; } = default!;
 
         [DataType(DataType.PhoneNumber)]
-        public string Phone { get; set; } = default!;
+        public string? Phone { get; set; }
     }
 }

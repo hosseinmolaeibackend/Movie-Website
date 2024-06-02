@@ -3,7 +3,7 @@
 *@
 @{
 }
-<a asp-controller="Register" asp-action="Register" class="btn btn-outline-info">Register</a>
+
 
 <!-- header section start -->
 <header class="header">
@@ -23,9 +23,18 @@
 					<button><i class="icofont icofont-search"></i></button>
 				</form>
 				<ul>
-					<li><a href="#">Welcome Guest!</a></li>
 					
-					<li><a class="btn btn-info" asp-area="Admin" asp-controller="Movie" asp-action="Index">Admin</a></li>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<li><a href="#">Welcome </a></li>
+						<li><a class="btn btn-info" asp-area="Admin" asp-controller="Movie" asp-action="Index">Admin</a></li>
+						<li><a asp-controller="Register" asp-action="Logout" class="btn btn-outline-primary">Logout</a></li>
+					}
+					else
+					{
+						<li><a asp-controller="Register" asp-action="Login" class="btn btn-outline-primary">Login</a></li>
+						<li><a asp-controller="Register" asp-action="Register" class="btn btn-outline-info">Register</a></li>
+					}
 				</ul>
 			</div>
 			<div class="menu-area">

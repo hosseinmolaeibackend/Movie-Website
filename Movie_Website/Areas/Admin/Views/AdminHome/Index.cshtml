@@ -1,0 +1,51 @@
+﻿@model List<UserModel>
+
+
+<table class="table table-hover ps-2">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Utilities</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.UserId">
+                <th scope="row">@item.UserId</th>
+                <th scope="row">@item.FullName</th>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Movie" asp-action="Details" asp-route-id="@item.UserId" class="btn btn-outline-primary">Details</a>
+                    <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-outline-warning">Edit</a>
+                    <a onclick="deleteItem(@item.UserId)" class="btn btn-outline-danger">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Script {
+    <script>
+        function deleteItem(id) {
+            $.ajax({
+                url: '/Admin/AdminHome/DeleteUser/' + id,
+                type: 'POST',
+                success: function (result) {
+                    if (result.success) {
+                        console.info("success")
+                        $("#" + id).fadeOut();
+                    }
+                    else {
+                        console.error("NoT requierd")
+                    }
+                }
+            });
+        }
+    </script>
+}
