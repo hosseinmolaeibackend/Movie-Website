@@ -10,6 +10,7 @@ namespace Movie_Website.Areas.Admin.Controllers
         // GET: MovieController
         public ActionResult Index()
         {
+            TempData["Movie"] = "active";
             return View(context.MovieModels.ToList());
         }
 
@@ -115,6 +116,21 @@ namespace Movie_Website.Areas.Admin.Controllers
             return Json(new { success = true });
         }
 
-      
+      public async Task<IActionResult> CreateComment([FromBody]CommentViewModel comment)
+        {
+            if (comment == null|| comment.UserId==0||comment.MovieId==0||string.IsNullOrWhiteSpace(comment.Description)) 
+                return BadRequest();
+
+            var newComment = new CommentModel() 
+            {
+                UserId = comment.UserId,
+                Description = comment.Description,
+                MovieId = comment.MovieId,
+            };
+
+            context.CommentModels.Add(newComment);
+            await context.SaveChangesAsync();
+            return Ok(comment);
+        }
     }
 }

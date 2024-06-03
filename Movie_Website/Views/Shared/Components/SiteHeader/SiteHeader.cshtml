@@ -27,7 +27,7 @@
 					@if (User.Identity.IsAuthenticated)
 					{
 						<li><a href="#">Welcome </a></li>
-						<li><a class="btn btn-info" asp-area="Admin" asp-controller="Movie" asp-action="Index">Admin</a></li>
+						<li><a class="btn btn-info" asp-area="Admin" asp-controller="AdminHome" asp-action="Index">Admin</a></li>
 						<li><a asp-controller="Register" asp-action="Logout" class="btn btn-outline-primary">Logout</a></li>
 					}
 					else

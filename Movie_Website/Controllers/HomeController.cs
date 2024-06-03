@@ -18,9 +18,11 @@ namespace Movie_Website.Controllers
             return View(_db.MovieModels.ToList());
         }
 
-        public IActionResult Privacy()
+        public IActionResult Details(int id)
         {
-            return View();
+			var Movie = _db.MovieModels.SingleOrDefault(x => x.MovieId == id);
+			if (Movie == null) return NotFound();
+            return View(Movie);
         }
 
 		public IActionResult News()

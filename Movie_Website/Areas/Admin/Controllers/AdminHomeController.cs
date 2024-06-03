@@ -7,6 +7,7 @@ namespace Movie_Website.Areas.Admin.Controllers
     {
         public IActionResult Index()
         {
+            TempData["AdminHome"] = "active";
             return View(context.UserModels.ToList());
         }
 
@@ -21,7 +22,8 @@ namespace Movie_Website.Areas.Admin.Controllers
 
         public IActionResult UserInformation(int id)
         {
-            return View(context.UserModels.ToList());
+            var user=context.UserModels.SingleOrDefault(x=>x.UserId == id);
+            return PartialView(user);
         }
     }
 }

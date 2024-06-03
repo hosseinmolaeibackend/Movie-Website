@@ -20,7 +20,7 @@
                 <td>@item.Phone</td>
                 <td>@item.Email</td>
                 <td>
-                    <a asp-area="Admin" asp-controller="Movie" asp-action="Details" asp-route-id="@item.UserId" class="btn btn-outline-primary">Details</a>
+                    <a onclick="detailsUser(@item.UserId)" class="btn btn-outline-primary">Details</a>
                     <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-outline-warning">Edit</a>
                     <a onclick="deleteItem(@item.UserId)" class="btn btn-outline-danger">Delete</a>
 
@@ -29,6 +29,22 @@
         }
     </tbody>
 </table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close bg-dark" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="ModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal -->
 
 @section Script {
     <script>
@@ -45,6 +61,14 @@
                         console.error("NoT requierd")
                     }
                 }
+            });
+        }
+        function detailsUser(id) {
+            $.get("/Admin/AdminHome/UserInformation/" + id, function (result) {
+                $("#exampleModal").modal("show");
+                $("#exampleModalLabel").html("user info")
+                $("#ModalBody").html(result);
+                console.log(result);
             });
         }
     </script>

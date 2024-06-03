@@ -29,7 +29,7 @@
 </head>
 <body>
 	<!-- Page loader -->
-	<div id="preloader"></div>
+	<!--<div id="preloader"></div>-->
 	@await Component.InvokeAsync("SiteHeader")
 	<!-- header section end -->
 	<!-- hero area start -->
@@ -240,5 +240,6 @@
 	<script src="assets/js/isotope.pkgd.min.js"></script>
 	<!-- main JS -->
 	<script src="/assets/js/main.js"></script>
+	@RenderSection("Script",false)
 </body>
 </html>
