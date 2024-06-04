@@ -15,7 +15,9 @@ namespace Movie_Website.Models
         public string Author { get; set; } = default!;
 		public string? Url { get; set; }
 
-
-        ICollection<MovieMedCastModel> MovieMedCasts { get; set; } = default!;
+        public ICollection<CommentModel> comments { get; set; } = default!;
+        public ICollection<GenerModel> generators { get; set; } = default!;
+		public ICollection<MovieMedCastModel> MovieMedCasts { get; set; } = default!;
+        public ICollection<LikeModel> LikeModels { get; set; } = default!;
 	}
 }

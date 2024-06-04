@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Movie_Website.AppContext;
 using Movie_Website.Models;
 using Movie_Website.ViewModel;
@@ -8,14 +9,15 @@ namespace Movie_Website.Areas.Admin.Controllers
     public class MovieController(ApplicationContext context) : AdminBaseController
     {
         // GET: MovieController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             TempData["Movie"] = "active";
             return View(context.MovieModels.ToList());
         }
 
-        // GET: MovieController/Details/5
-        public ActionResult Details(int id)
+		#region Details
+		// GET: MovieController/Details/5
+		public IActionResult Details(int id)
         {
             var Movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
             if (Movie != null)
@@ -24,17 +26,18 @@ namespace Movie_Website.Areas.Admin.Controllers
             }
             return Json(" !--------- 😒 Notfound Movie 😒 ---------! ");
         }
+		#endregion
 
-        #region Create Movie
-        // GET: MovieController/Create
-        public ActionResult Create()
+		#region Create Movie
+		// GET: MovieController/Create
+		public IActionResult Create()
         {
             return View();
         }
 
         // POST: MovieController/Create
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MovieViewModel movieVM)
+        public async Task<IActionResult> Create(MovieViewModel movieVM)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +70,7 @@ namespace Movie_Website.Areas.Admin.Controllers
         #region Edit
 
         // GET: MovieController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var existMovie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
             if (existMovie == null) return NotFound();
@@ -104,10 +107,12 @@ namespace Movie_Website.Areas.Admin.Controllers
 
             return Json(" !--------- 😒 Errorr 😒 ---------! ");
         }
-        #endregion
-        // GET: MovieController/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id)
+		#endregion
+
+		#region Deleted
+		// GET: MovieController/Delete/5
+		[HttpPost]
+        public IActionResult Delete(int id)
         {
             var Movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
             if (Movie == null) return NotFound();
@@ -116,21 +121,6 @@ namespace Movie_Website.Areas.Admin.Controllers
             return Json(new { success = true });
         }
 
-      public async Task<IActionResult> CreateComment([FromBody]CommentViewModel comment)
-        {
-            if (comment == null|| comment.UserId==0||comment.MovieId==0||string.IsNullOrWhiteSpace(comment.Description)) 
-                return BadRequest();
-
-            var newComment = new CommentModel() 
-            {
-                UserId = comment.UserId,
-                Description = comment.Description,
-                MovieId = comment.MovieId,
-            };
-
-            context.CommentModels.Add(newComment);
-            await context.SaveChangesAsync();
-            return Ok(comment);
-        }
-    }
+		#endregion
+	}
 }

@@ -20,5 +20,9 @@ namespace Movie_Website.Models
 
         [DataType(DataType.PhoneNumber)]
         public string? Phone { get; set; }
+
+
+        ICollection<CommentModel> comments { get; set; } = default!;
+        ICollection<LikeModel> like { get; set; } = default!;
     }
 }
