@@ -19,7 +19,7 @@ namespace Movie_Website.Controllers
 
 		public IActionResult Details(int id)
 		{
-			var Movie = _db.MovieModels.Include(x => x.comments).SingleOrDefault(p => p.MovieId == id);
+			var Movie = _db.MovieModels.Include(x => x.comments).ThenInclude(x => x.User).SingleOrDefault(p => p.MovieId == id);
 			if (Movie == null) return NotFound();
 			return View(Movie);
 		}
@@ -29,15 +29,9 @@ namespace Movie_Website.Controllers
 			return PartialView();
 		}
 
-		//public IActionResult Videos()
-		//{
-		//	return PartialView();
-		//}
-
-		//public IActionResult vbv()
-		//{
-		//	return db.caterory.Include(x => x.Movies).Take(10).ToList();
-		//}
-
+		public IActionResult Videos()
+		{
+			return View(_db.MovieModels.ToList());
+		}
 	}
 }
