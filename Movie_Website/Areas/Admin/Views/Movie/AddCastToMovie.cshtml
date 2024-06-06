@@ -1,0 +1,22 @@
+﻿@model MovieMedCastViewModel
+
+
+
+<h2>@ViewBag.MovieName</h2>
+
+<div class="container">
+    <form asp-controller="Movie" asp-action="AddCastToMovie" method="post">
+        <input type="hidden" asp-for="MovieId" value="@ViewBag.MovieId" />
+
+        <div class="form-group">
+            <label for="cast">Select Cast</label>
+            <select asp-for="CastId" class="form-control w-75" asp-items="@ViewBag.Casts">
+                <option value="">-- Select Cast --</option>
+            </select>
+        </div>
+        <div class="d-flex flex-row justify-content-end w-75">
+            <button type="submit" class="btn btn-primary ">Add Cast</button>
+        </div>
+    </form>
+</div>
+

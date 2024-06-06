@@ -31,7 +31,8 @@ namespace Movie_Website.Controllers
 
 		public IActionResult Videos()
 		{
-			return View(_db.MovieModels.ToList());
+			var videos=_db.MovieModels.Include(x=>x.comments).ToList();
+			return View(videos);
 		}
 	}
 }

@@ -11,8 +11,8 @@ using Movie_Website.AppContext;
 namespace Movie_Website.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240530173356_HandelEmptyProperty")]
-    partial class HandelEmptyProperty
+    [Migration("20240606162011_initialDb")]
+    partial class initialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -149,15 +149,12 @@ namespace Movie_Website.Migrations
                     b.Property<int>("CastId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CastModelCastId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CastModelCastId");
+                    b.HasIndex("CastId");
 
                     b.HasIndex("MovieId");
 
@@ -217,7 +214,6 @@ namespace Movie_Website.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
@@ -228,13 +224,13 @@ namespace Movie_Website.Migrations
             modelBuilder.Entity("Movie_Website.Models.CommentModel", b =>
                 {
                     b.HasOne("Movie_Website.Models.MovieModel", "Movie")
-                        .WithMany()
+                        .WithMany("comments")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Movie_Website.Models.UserModel", "User")
-                        .WithMany()
+                        .WithMany("comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -247,13 +243,13 @@ namespace Movie_Website.Migrations
             modelBuilder.Entity("Movie_Website.Models.GenerModel", b =>
                 {
                     b.HasOne("Movie_Website.Models.CategoryModel", "Category")
-                        .WithMany()
+                        .WithMany("Generes")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Movie_Website.Models.MovieModel", "Movie")
-                        .WithMany()
+                        .WithMany("generators")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -266,13 +262,13 @@ namespace Movie_Website.Migrations
             modelBuilder.Entity("Movie_Website.Models.LikeModel", b =>
                 {
                     b.HasOne("Movie_Website.Models.MovieModel", "Movie")
-                        .WithMany()
+                        .WithMany("LikeModels")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Movie_Website.Models.UserModel", "User")
-                        .WithMany()
+                        .WithMany("like")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -285,20 +281,48 @@ namespace Movie_Website.Migrations
             modelBuilder.Entity("Movie_Website.Models.MovieMedCastModel", b =>
                 {
                     b.HasOne("Movie_Website.Models.CastModel", "CastModel")
-                        .WithMany()
-                        .HasForeignKey("CastModelCastId")
+                        .WithMany("MovieMedCasts")
+                        .HasForeignKey("CastId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movie_Website.Models.MovieModel", "Movie")
-                        .WithMany()
+                    b.HasOne("Movie_Website.Models.MovieModel", "MovieModel")
+                        .WithMany("MovieMedCasts")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CastModel");
 
-                    b.Navigation("Movie");
+                    b.Navigation("MovieModel");
+                });
+
+            modelBuilder.Entity("Movie_Website.Models.CastModel", b =>
+                {
+                    b.Navigation("MovieMedCasts");
+                });
+
+            modelBuilder.Entity("Movie_Website.Models.CategoryModel", b =>
+                {
+                    b.Navigation("Generes");
+                });
+
+            modelBuilder.Entity("Movie_Website.Models.MovieModel", b =>
+                {
+                    b.Navigation("LikeModels");
+
+                    b.Navigation("MovieMedCasts");
+
+                    b.Navigation("comments");
+
+                    b.Navigation("generators");
+                });
+
+            modelBuilder.Entity("Movie_Website.Models.UserModel", b =>
+                {
+                    b.Navigation("comments");
+
+                    b.Navigation("like");
                 });
 #pragma warning restore 612, 618
         }

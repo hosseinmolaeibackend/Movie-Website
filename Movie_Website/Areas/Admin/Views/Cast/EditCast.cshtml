@@ -1,0 +1,18 @@
+﻿@model CastViewModel
+
+<form asp-area="Admin" asp-controller="Cast" asp-action="EditCast" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Bio" class="form-label">Bio</label>
+        <input asp-for="Bio" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Age" class="form-label">Age</label>
+        <input asp-for="Age" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-outline-success"> Edit </button>
+</form>
+

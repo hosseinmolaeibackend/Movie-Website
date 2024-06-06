@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "View";
 }
+
+@if (TempData["Relation"]!=null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Hi !</strong> @TempData["Relation"] .
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+
+
+
 <a asp-area="Admin" asp-controller="Movie" asp-action="Create" class="btn btn-outline-success ms-4">Create</a>
 <table class="table table-hover ps-2">
     <thead>
@@ -26,6 +40,7 @@
                     <a asp-area="Admin" asp-controller="Movie" asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-outline-primary">Details</a>
                     <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@item.MovieId" class="btn btn-outline-warning">Edit</a>
                     <a onclick="deleteItem(@item.MovieId)" class="btn btn-outline-danger">Delete</a>
+                    <a asp-area="Admin" asp-controller="Movie" asp-action="AddCastToMovie" asp-route-id="@item.MovieId" class="btn btn-outline-success">AddCastToMovie</a>
 
                 </td>
             </tr>
@@ -38,7 +53,7 @@
     function deleteItem(id) {
         $.ajax({
             url: '/Admin/Movie/Delete/' + id,
-            type: 'POST',
+            type: 'DELETE',
             success: function (result) {
                 if (result.success) {
                     console.info("success")

@@ -5,7 +5,7 @@
 namespace Movie_Website.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_Db : Migration
+    public partial class initialDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,7 +47,7 @@ namespace Movie_Website.Migrations
                     MovieTitle = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     MovieDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -63,7 +63,7 @@ namespace Movie_Website.Migrations
                     FullName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -103,15 +103,14 @@ namespace Movie_Website.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MovieId = table.Column<int>(type: "int", nullable: false),
-                    CastId = table.Column<int>(type: "int", nullable: false),
-                    CastModelCastId = table.Column<int>(type: "int", nullable: false)
+                    CastId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MovieMedCastModels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MovieMedCastModels_CastModels_CastModelCastId",
-                        column: x => x.CastModelCastId,
+                        name: "FK_MovieMedCastModels_CastModels_CastId",
+                        column: x => x.CastId,
                         principalTable: "CastModels",
                         principalColumn: "CastId",
                         onDelete: ReferentialAction.Cascade);
@@ -207,9 +206,9 @@ namespace Movie_Website.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MovieMedCastModels_CastModelCastId",
+                name: "IX_MovieMedCastModels_CastId",
                 table: "MovieMedCastModels",
-                column: "CastModelCastId");
+                column: "CastId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieMedCastModels_MovieId",

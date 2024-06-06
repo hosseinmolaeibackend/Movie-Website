@@ -9,6 +9,6 @@ namespace Movie_Website.Models
         [Required]
         public string GenerName { get; set; } = default!;
 
-		ICollection<GenerModel> Generes { get; set; } = default!;
+		public ICollection<GenerModel> Generes { get; set; } = default!;
 	}
 }

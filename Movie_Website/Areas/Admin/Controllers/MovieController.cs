@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Movie_Website.AppContext;
 using Movie_Website.Models;
 using Movie_Website.ViewModel;
@@ -15,9 +15,9 @@ namespace Movie_Website.Areas.Admin.Controllers
             return View(context.MovieModels.ToList());
         }
 
-		#region Details
-		// GET: MovieController/Details/5
-		public IActionResult Details(int id)
+        #region Details
+        // GET: MovieController/Details/5
+        public IActionResult Details(int id)
         {
             var Movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
             if (Movie != null)
@@ -26,11 +26,11 @@ namespace Movie_Website.Areas.Admin.Controllers
             }
             return Json(" !--------- 😒 Notfound Movie 😒 ---------! ");
         }
-		#endregion
+        #endregion
 
-		#region Create Movie
-		// GET: MovieController/Create
-		public IActionResult Create()
+        #region Create Movie
+        // GET: MovieController/Create
+        public IActionResult Create()
         {
             return View();
         }
@@ -78,9 +78,9 @@ namespace Movie_Website.Areas.Admin.Controllers
             {
                 MovieId = existMovie.MovieId,
                 MovieTitle = existMovie.MovieTitle,
-                Author= existMovie.Author,
+                Author = existMovie.Author,
                 Url = existMovie.Url,
-                MovieDescription= existMovie.MovieDescription
+                MovieDescription = existMovie.MovieDescription
             };
             return View(editMovie);
         }
@@ -107,11 +107,11 @@ namespace Movie_Website.Areas.Admin.Controllers
 
             return Json(" !--------- 😒 Errorr 😒 ---------! ");
         }
-		#endregion
+        #endregion
 
-		#region Deleted
-		// GET: MovieController/Delete/5
-		[HttpPost]
+        #region Deleted
+        // GET: MovieController/Delete/5
+        [HttpDelete]
         public IActionResult Delete(int id)
         {
             var Movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
@@ -121,6 +121,41 @@ namespace Movie_Website.Areas.Admin.Controllers
             return Json(new { success = true });
         }
 
-		#endregion
-	}
+        #endregion
+
+
+        #region AddOrSelectCast
+        [HttpGet]
+        public IActionResult AddCastToMovie(int id)
+        {
+            var movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
+            if (movie == null) return NotFound();
+            ViewBag.MovieName = movie.MovieTitle;
+            ViewBag.MovieId = id;
+            ViewBag.Casts = new SelectList(context.CastModels, "CastId", "Name");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCastToMovie(MovieMedCastViewModel vm)
+        {
+            if (vm == null) return NotFound();
+            var movie = context.MovieModels.SingleOrDefault(m => m.MovieId == vm.MovieId);
+            var cast = context.CastModels.SingleOrDefault(c => c.CastId == vm.CastId);
+            if (ModelState.IsValid)
+            {
+                var newMed = new MovieMedCastModel()
+                {
+                    MovieId = vm.MovieId,
+                    CastId = vm.CastId
+                };
+                context.MovieMedCastModels.Add(newMed);
+                context.SaveChanges();
+                TempData["Relation"] = $"Add Cast: {cast?.Name} To Movie:{movie?.MovieTitle}";
+                return RedirectToAction("Index", "Movie");
+            }
+
+            return View();
+        }
+        #endregion
+    }
 }

@@ -13,7 +13,7 @@ namespace Movie_Website.Models
 
 
         public CastModel CastModel { get; set; } = default!;
-		public MovieModel Movie { get; set; } = default!;
+		public MovieModel MovieModel { get; set; } = default!;
 
 	}
 }

@@ -22,7 +22,7 @@ namespace Movie_Website.Models
         public string? Phone { get; set; }
 
 
-        ICollection<CommentModel> comments { get; set; } = default!;
-        ICollection<LikeModel> like { get; set; } = default!;
+        public ICollection<CommentModel> comments { get; set; } = default!;
+        public ICollection<LikeModel> like { get; set; } = default!;
     }
 }

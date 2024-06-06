@@ -12,6 +12,6 @@ namespace Movie_Website.Models
         public string Bio { get; set; } = default!;
 		public int Age { get; set; }
 
-        ICollection<MovieMedCastModel> Medies { get; set; } = default!;
-	}
+        public ICollection<MovieMedCastModel> MovieMedCasts { get; set; } = default!;
+    }
 }
