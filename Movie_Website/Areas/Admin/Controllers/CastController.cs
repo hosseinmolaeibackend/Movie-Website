@@ -7,16 +7,21 @@ namespace Movie_Website.Areas.Admin.Controllers
 {
     public class CastController : AdminBaseController
     {
+        #region Dependencies
         private readonly ApplicationContext _db;
         public CastController(ApplicationContext context)
         {
             _db = context;
         }
+        #endregion
+
+        #region Show Cast To Admin
         public IActionResult ShowCast()
         {
             TempData["Cast"] = "active";
             return View(_db.CastModels.ToList());
         }
+        #endregion
 
         #region CreateCast
         [HttpGet]
@@ -71,6 +76,15 @@ namespace Movie_Website.Areas.Admin.Controllers
                 return RedirectToAction("ShowCast");
             }
             return View();
+        }
+        #endregion
+
+        #region Details
+        public IActionResult DetailCast(int id) 
+        {
+            var CastOverView=_db.CastModels.SingleOrDefault(x=>x.CastId == id);
+            if (CastOverView == null) return NotFound();
+            return View(CastOverView);
         }
         #endregion
     }

@@ -24,7 +24,6 @@
             <th scope="col">#</th>
             <th scope="col">Titel</th>
             <th scope="col">Author</th>
-            <th scope="col">Link</th>
             <th scope="col">Utilities</th>
         </tr>
     </thead>
@@ -35,7 +34,6 @@
                 <th scope="row">@item.MovieId</th>
                 <td>@item.MovieTitle</td>
                 <td>@item.Author</td>
-                <td>@item.Url</td>
                 <td>
                     <a asp-area="Admin" asp-controller="Movie" asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-outline-primary">Details</a>
                     <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@item.MovieId" class="btn btn-outline-warning">Edit</a>

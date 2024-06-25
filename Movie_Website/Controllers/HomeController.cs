@@ -14,6 +14,7 @@ namespace Movie_Website.Controllers
 		[Route("/")]
 		public IActionResult Index()
 		{
+			TempData["Index"] = "active";
 			return View(_db.MovieModels.ToList());
 		}
 
@@ -31,8 +32,25 @@ namespace Movie_Website.Controllers
 
 		public IActionResult Videos()
 		{
-			var videos=_db.MovieModels.Include(x=>x.comments).ToList();
+			TempData["Videos"] = "active";
+			var videos = _db.MovieModels.Include(x => x.comments).ToList();
 			return View(videos);
 		}
+
+		#region show celebrities to users
+		public IActionResult ShowCelebrities()
+		{
+			TempData["ShowCelebrities"] = "active";
+			return View(_db.CastModels.ToList());
+		}
+		#region Detail cast to users
+		public IActionResult DetailCelebrities(int id)
+		{
+			var cast = _db.CastModels.SingleOrDefault(x => x.CastId == id);
+			if (cast == null) return NotFound();
+			return View(cast);
+		}
+		#endregion
+		#endregion
 	}
 }

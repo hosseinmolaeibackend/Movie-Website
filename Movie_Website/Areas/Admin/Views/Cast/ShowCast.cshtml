@@ -33,7 +33,7 @@
                 <td>@item.Age</td>
                 
                 <td>
-                    <a asp-area="Admin" asp-controller="Cast" asp-action="Details" asp-route-id="@item.CastId" class="btn btn-outline-primary">Details</a>
+                    <a asp-area="Admin" asp-controller="Cast" asp-action="DetailCast" asp-route-id="@item.CastId" class="btn btn-outline-primary">Details</a>
                     <a asp-area="Admin" asp-controller="Cast" asp-action="EditCast" asp-route-id="@item.CastId" class="btn btn-outline-warning">Edit</a>
                     <a onclick="deleteItem(@item.)" class="btn btn-outline-danger">Delete</a>
 
