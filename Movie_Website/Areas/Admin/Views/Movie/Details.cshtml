@@ -1,4 +1,12 @@
-﻿@model MovieModel
+﻿
+@model MovieModel
+
+
+@section Style{
+    <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+}
+
+<img src="@(PathTools.MovieImageThumb+Model.ImageName)" alt="@Model.ImageName" />
 
 <h2 class="p-2">@Model.MovieTitle</h2>
 
@@ -10,9 +18,22 @@
     <p class=" text-bold">
         Author: @Model.Author
     </p>
-
+    
     <a href="@Model.Url" class="btn btn-sm btn-outline-info" target="_blank">@Model.Url</a><br />
+
+    <video id="my_video"
+           class="video-js"
+           controls
+           preload="auto"
+           src="@(PathTools.MovieVideo+Model.VideoName)"
+           width="640"
+           height="268"
+           poster="@(PathTools.MovieImage+Model.ImageName)"
+           data-setup="{}"/>
 
     <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@Model.MovieId" class="btn btn-warning">Edit</a>
 </div>
 
+@section Script{
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
+}

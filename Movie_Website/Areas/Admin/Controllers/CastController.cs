@@ -2,6 +2,7 @@
 using Movie_Website.AppContext;
 using Movie_Website.Models;
 using Movie_Website.Utilities;
+using Movie_Website.Utilities.Tools;
 using Movie_Website.ViewModel;
 using WebApplication2.Utilities.ImageHelper;
 
@@ -106,5 +107,21 @@ namespace Movie_Website.Areas.Admin.Controllers
             return View(CastOverView);
         }
         #endregion
-    }
+
+        #region Delete Cast
+        [HttpDelete]
+        public IActionResult DeleteCast(int id) 
+        {
+            var cast= _db.CastModels.SingleOrDefault(x=> x.CastId == id);
+            if (cast == null) return NotFound();
+			if (cast.ImageName != null)
+				Tools.DeleteFile(PathTools.MovieImage.ToString(), cast.ImageName);
+
+            _db.CastModels.Remove(cast);
+            _db.SaveChanges();
+			return Json(new { success = true });
+		}
+
+		#endregion
+	}
 }

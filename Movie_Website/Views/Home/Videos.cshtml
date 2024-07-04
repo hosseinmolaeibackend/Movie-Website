@@ -22,10 +22,10 @@
         {
             <div class="col">
                 <div class="card">
-                    <img src="~/assets/img/slide3.png" class="card-img-top" alt="...">
+                    <img src="@(PathTools.MovieImageThumb+item.ImageName)" class="card-img-top" alt="@item.ImageName">
                     <div class="card-body">
                         <h5 class="card-title">@item.MovieTitle</h5>
-                        <p class="card-text">@Html.Raw(item.MovieDescription.Substring(0,150))</p>
+                        <p class="card-text">@Html.Raw(item.MovieDescription.Substring(0,10))</p>
                         <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MovieId" class="theme-btn theme-btn2">Watch Movie</a>
                     </div>
                     <div class="card-footer">

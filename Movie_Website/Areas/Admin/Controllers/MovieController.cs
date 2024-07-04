@@ -56,12 +56,12 @@ namespace Movie_Website.Areas.Admin.Controllers
                     };
                     if (movieVM.Image != null)
                     {
-                        var imgname=Guid.NewGuid().ToString("N")+Path.GetExtension(movieVM.Image.FileName);
-                        movieVM.Image.AddImageToServer(imgname, PathTools.MovieImageServerPath, 524, 721,PathTools.MovieImageThumbServerPath);
+                        var imgname = Guid.NewGuid().ToString("N") + Path.GetExtension(movieVM.Image.FileName);
+                        movieVM.Image.AddImageToServer(imgname, PathTools.MovieImageServerPath, 524, 721, PathTools.MovieImageThumbServerPath);
                         newMovie.ImageName = imgname;
                     }
-                    var vidname=Guid.NewGuid().ToString("N")+Path.GetExtension(movieVM.Video.FileName);
-                    await movieVM.Video.AddVideoToServer( vidname, PathTools.MovieVideoServerPath);
+                    var vidname = Guid.NewGuid().ToString("N") + Path.GetExtension(movieVM.Video.FileName);
+                    await movieVM.Video.AddVideoToServer(vidname, PathTools.MovieVideoServerPath);
                     newMovie.VideoName = vidname;
                     context.MovieModels.Add(newMovie);
                     await context.SaveChangesAsync();
@@ -114,27 +114,21 @@ namespace Movie_Website.Areas.Admin.Controllers
                 ExistMovie.MovieId = editMovieModel.MovieId;
                 if (editMovieModel.Image != null)
                 {
-                    var ImgName=Guid.NewGuid().ToString("N")+Path.GetExtension(editMovieModel.Image.FileName);
+                    var ImgName = Guid.NewGuid().ToString("N") + Path.GetExtension(editMovieModel.Image.FileName);
                     if (ExistMovie.ImageName != null)
                     {
                         editMovieModel.Image.AddImageToServer(ImgName,
                             PathTools.MovieImage, 524, 721,
                             PathTools.MovieImageThumb, ExistMovie.ImageName);
+                        ExistMovie.ImageName = ImgName;
                     }
-                    else
-                    {
-						editMovieModel.Image.AddImageToServer(ImgName,
-							PathTools.MovieImage, 524, 721, PathTools.MovieImageThumb);
-					}
-                        
-                    ExistMovie.ImageName=ImgName;
-				}
-                if(editMovieModel.Video != null)
+                }
+                if (editMovieModel.Video != null)
                 {
-					var vidname = Guid.NewGuid().ToString("N") + Path.GetExtension(editMovieModel.Video.FileName);
-					await editMovieModel.Video.AddVideoToServer(vidname, PathTools.MovieVideoServerPath, ExistMovie.VideoName);
-                    ExistMovie.VideoName=vidname;
-				}
+                    var vidname = Guid.NewGuid().ToString("N") + Path.GetExtension(editMovieModel.Video.FileName);
+                    await editMovieModel.Video.AddVideoToServer(vidname, PathTools.MovieVideoServerPath, ExistMovie.VideoName);
+                    ExistMovie.VideoName = vidname;
+                }
                 context.MovieModels.Update(ExistMovie);
                 await context.SaveChangesAsync();
 
@@ -153,12 +147,12 @@ namespace Movie_Website.Areas.Admin.Controllers
             var Movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
             if (Movie == null) return NotFound();
 
-            if(Movie.ImageName!=null)
-			    Tools.DeleteFile(PathTools.MovieImage.ToString(),Movie.ImageName);
-            if(Movie.VideoName!=null)
-			    Tools.DeleteFile(PathTools.MovieVideo.ToString(), Movie.VideoName);
+            if (Movie.ImageName != null)
+                Tools.DeleteFile(PathTools.MovieImage.ToString(), Movie.ImageName);
+            if (Movie.VideoName != null)
+                Tools.DeleteFile(PathTools.MovieVideo.ToString(), Movie.VideoName);
 
-			context.MovieModels.Remove(Movie);
+            context.MovieModels.Remove(Movie);
             context.SaveChanges();
             return Json(new { success = true });
         }

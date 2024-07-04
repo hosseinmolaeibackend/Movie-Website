@@ -35,10 +35,31 @@
                 <td>
                     <a asp-area="Admin" asp-controller="Cast" asp-action="DetailCast" asp-route-id="@item.CastId" class="btn btn-outline-primary">Details</a>
                     <a asp-area="Admin" asp-controller="Cast" asp-action="EditCast" asp-route-id="@item.CastId" class="btn btn-outline-warning">Edit</a>
-                    <a onclick="deleteItem(@item.)" class="btn btn-outline-danger">Delete</a>
+                    <a onclick="deleteItem(@item.CastId)" class="btn btn-outline-danger">Delete</a>
 
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+@section Script {
+    <script>
+        function deleteItem(id) {
+            $.ajax({
+                url: '/Admin/Cast/DeleteCast/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    if (result.success) {
+                        console.info("success")
+                        $("#" + id).fadeOut();
+                    }
+                    else {
+                        console.error("NoT requierd")
+                    }
+                }
+            });
+        }
+    </script>
+}

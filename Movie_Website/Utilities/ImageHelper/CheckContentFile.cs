@@ -32,7 +32,8 @@ public static class CheckContentFile
                 if (postedFile.ContentType.ToLower() != "image/jpg" &&
                             postedFile.ContentType.ToLower() != "image/jpeg" &&
                             postedFile.ContentType.ToLower() != "image/x-png" &&
-                            postedFile.ContentType.ToLower() != "image/png")
+                            postedFile.ContentType.ToLower() != "image/png" &&
+                             postedFile.ContentType.ToLower() != "image/jfif")
                 {
                     return false;
                 }
@@ -42,7 +43,8 @@ public static class CheckContentFile
                 //-------------------------------------------
                 if (Path.GetExtension(postedFile.FileName).ToLower() != ".jpg"
                     && Path.GetExtension(postedFile.FileName).ToLower() != ".png"
-                    && Path.GetExtension(postedFile.FileName).ToLower() != ".jpeg")
+                    && Path.GetExtension(postedFile.FileName).ToLower() != ".jpeg"
+                    && Path.GetExtension(postedFile.FileName).ToLower() != ".jfif")
                 {
                     return false;
                 }
