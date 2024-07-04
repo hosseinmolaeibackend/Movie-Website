@@ -2,6 +2,10 @@
 
 <form asp-area="Admin" asp-controller="Cast" asp-action="CreateCast" method="post" enctype="multipart/form-data">
     <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for="Image" class="form-control">
+    </div>
+    <div class="mb-3">
         <label for="Name" class="form-label">Name</label>
         <input asp-for="Name" class="form-control">
     </div>

@@ -1,5 +1,7 @@
-﻿@model CastModel
+﻿@using Movie_Website.Utilities
+@model CastModel
 
+<img src="@(PathTools.CastImageThumb+Model.ImageName)" alt="@Model.ImageName" />
 
 <h3>@Model.Name</h3>
 

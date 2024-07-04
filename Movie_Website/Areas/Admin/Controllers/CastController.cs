@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movie_Website.AppContext;
 using Movie_Website.Models;
+using Movie_Website.Utilities;
 using Movie_Website.ViewModel;
+using WebApplication2.Utilities.ImageHelper;
 
 namespace Movie_Website.Areas.Admin.Controllers
 {
@@ -40,6 +42,12 @@ namespace Movie_Website.Areas.Admin.Controllers
                     Bio = castVM.Bio,
                     Age = castVM.Age
                 };
+                if (castVM.Image != null)
+                {
+                    var Imgname=Guid.NewGuid().ToString("N")+Path.GetExtension(castVM.Image.FileName);
+                    castVM.Image.AddImageToServer(Imgname,PathTools.CastImageServerPath,524,721,PathTools.CastImageThumbServerPath);
+                    newCast.ImageName= Imgname;
+                }
                 _db.CastModels.Add(newCast);
                 _db.SaveChanges();
                 return RedirectToAction("ShowCast");
@@ -58,7 +66,8 @@ namespace Movie_Website.Areas.Admin.Controllers
             {
                 Name = cast.Name,
                 Bio = cast.Bio,
-                Age = cast.Age
+                Age = cast.Age,
+                ImageName = cast.ImageName
             };
             return View(vm);
         }
@@ -66,12 +75,22 @@ namespace Movie_Website.Areas.Admin.Controllers
         public IActionResult EditCast(int id, CastViewModel castVM)
         {
             var cast = _db.CastModels.SingleOrDefault(c => c.CastId == id);
+            if(cast == null) return NotFound();
             if (ModelState.IsValid)
             {
                 cast.Name = castVM.Name;
                 cast.Bio = castVM.Bio;
                 cast.Age = castVM.Age;
-                _db.CastModels.Update(cast);
+                if (castVM.Image != null)
+                {
+					var Imgname = Guid.NewGuid().ToString("N") + Path.GetExtension(castVM.Image.FileName);
+					castVM.Image.AddImageToServer(Imgname, PathTools.CastImageServerPath,
+                        524, 721, PathTools.CastImageThumbServerPath,cast.ImageName);
+					cast.ImageName = Imgname;
+				}
+				
+
+				_db.CastModels.Update(cast);
                 _db.SaveChanges();
                 return RedirectToAction("ShowCast");
             }

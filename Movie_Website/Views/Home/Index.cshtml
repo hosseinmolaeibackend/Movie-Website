@@ -39,38 +39,22 @@
 							</div>
 							@foreach(var i in item.MovieMedCasts)
 							{
-								@i.CastModel.Name
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast1.png" alt="about" />
-								</div>
+										<h3>Cast:</h3>
+									<div class="slide-cast">
+										<div class="single-slide-cast">
+										@if (i.CastModel.ImageName != "")
+										{
+											<img src="@(PathTools.CastImageThumb+i.CastModel.ImageName)" alt="about" class="rounded-circle"
+											width="50px" height="50px"/>
+										}
+										</div>
+										<div class="single-slide-cast text-center">
+											5+
+										</div>
+									</div>
 							}
-							<h3>Cast:</h3>
-							<div class="slide-cast">
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast1.png" alt="about" />
-								</div>
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast2.html" alt="about" />
-								</div>
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast3.png" alt="about" />
-								</div>
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast4.png" alt="about" />
-								</div>
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast5.png" alt="about" />
-								</div>
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast6.png" alt="about" />
-								</div>
-								<div class="single-slide-cast">
-									<img src="~/assets/img/cast/cast7.png" alt="about" />
-								</div>
-								<div class="single-slide-cast text-center">
-									5+
-								</div>
-							</div>
+							
+						
 							<div class="slide-trailor">
 								<h3>Watch Trailer</h3>
 								<a class="theme-btn theme-btn2" asp-controller="Home" asp-action="Details" asp-route-id="@item.MovieId"><i class="icofont icofont-play"></i> Play</a>

@@ -18,11 +18,12 @@
         {
             <div class="col">
                 <div class="card">
-                    <img src="~/assets/img/slide3.png" class="card-img-top" alt="...">
+                    <img src="@(PathTools.CastImageThumb+item.ImageName)" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">@item.Name</h5>
                         <p class="card-text">@Html.Raw(item.Bio.Substring(0, 10))</p>
-                        <a asp-controller="Home" asp-action="DetailCelebrities" asp-route-id="@item.CastId" class="theme-btn theme-btn2">Over View @item.Name 's life</a>
+                        <a asp-controller="Home" asp-action="DetailCelebrities" 
+                        asp-route-id="@item.CastId" class="theme-btn theme-btn2">Over View @item.Name 's life</a>
                     </div>
                     <div class="card-footer">
                         <small class="text-body-secondary">Age: @item.Age</small>
