@@ -14,7 +14,14 @@
 				<div class="row hero-area-slide">
 					<div class="col-lg-6 col-md-5">
 						<div class="hero-area-content">
-							<img src="~/assets/img/slide2.png" alt="about" />
+							@if (item.ImageName != null)
+							{
+								<img src="@(PathTools.MovieImage+item.ImageName)" alt="about" />
+							}
+							else
+							{
+								<img src="~/assets/img/slide1.png" alt=".." />
+							}
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-7">
@@ -30,10 +37,13 @@
 								</div>
 								<h4>180k voters</h4>
 							</div>
-							@{
-								var ex = Html.Raw(item.MovieDescription);
+							@foreach(var i in item.MovieMedCasts)
+							{
+								@i.CastModel.Name
+								<div class="single-slide-cast">
+									<img src="~/assets/img/cast/cast1.png" alt="about" />
+								</div>
 							}
-							<p id="movieDescription">@ex.ToString().Substring(10,150)</p>
 							<h3>Cast:</h3>
 							<div class="slide-cast">
 								<div class="single-slide-cast">

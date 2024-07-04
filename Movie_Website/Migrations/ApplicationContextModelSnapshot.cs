@@ -36,6 +36,9 @@ namespace Movie_Website.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -170,6 +173,9 @@ namespace Movie_Website.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MovieDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -180,6 +186,10 @@ namespace Movie_Website.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MovieId");

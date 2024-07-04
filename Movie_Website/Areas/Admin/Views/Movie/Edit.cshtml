@@ -5,6 +5,14 @@
 <form asp-controller="Movie" asp-action="Edit" asp-area="Admin" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="MovieId" />
     <div class="mb-3">
+        <label for="Video" class="form-label">Video</label>
+        <input asp-for="Video" class="form-control" accept="video/mp4,video/x-m4v,video/*">
+    </div>
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for="Image" class="form-control" accept="image/png, image/jpeg, image/*">
+    </div>
+    <div class="mb-3">
         <label for="MovieTitle" class="form-label">MovieTitle</label>
         <input asp-for="MovieTitle" class="form-control">
     </div>

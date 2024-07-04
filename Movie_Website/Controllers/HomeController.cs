@@ -15,7 +15,12 @@ namespace Movie_Website.Controllers
 		public IActionResult Index()
 		{
 			TempData["Index"] = "active";
-			return View(_db.MovieModels.ToList());
+
+			
+			var c= _db.MovieMedCastModels.Include(m=>m.MovieModel).Include(c=>c.CastModel).ToList();
+
+			var a = _db.MovieModels.Include(c=>c.MovieMedCasts).ThenInclude(x=>x.CastModel).ToList();
+			return View(a);
 		}
 
 		public IActionResult Details(int id)

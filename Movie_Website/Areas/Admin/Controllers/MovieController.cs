@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Movie_Website.AppContext;
 using Movie_Website.Models;
+using Movie_Website.Utilities;
 using Movie_Website.ViewModel;
+using WebApplication2.Utilities.ImageHelper;
+using Movie_Website.Utilities.Tools;
 
 namespace Movie_Website.Areas.Admin.Controllers
 {
@@ -51,6 +54,15 @@ namespace Movie_Website.Areas.Admin.Controllers
                         Author = movieVM.Author,
                         Url = movieVM.Url
                     };
+                    if (movieVM.Image != null)
+                    {
+                        var imgname=Guid.NewGuid().ToString("N")+Path.GetExtension(movieVM.Image.FileName);
+                        movieVM.Image.AddImageToServer(imgname, PathTools.MovieImageServerPath, 524, 721,PathTools.MovieImageThumbServerPath);
+                        newMovie.ImageName = imgname;
+                    }
+                    var vidname=Guid.NewGuid().ToString("N")+Path.GetExtension(movieVM.Video.FileName);
+                    await movieVM.Video.AddVideoToServer( vidname, PathTools.MovieVideoServerPath);
+                    newMovie.VideoName = vidname;
                     context.MovieModels.Add(newMovie);
                     await context.SaveChangesAsync();
                     TempData["name"] = movieVM.MovieTitle;
@@ -80,7 +92,9 @@ namespace Movie_Website.Areas.Admin.Controllers
                 MovieTitle = existMovie.MovieTitle,
                 Author = existMovie.Author,
                 Url = existMovie.Url,
-                MovieDescription = existMovie.MovieDescription
+                MovieDescription = existMovie.MovieDescription,
+                ImageName = existMovie.ImageName,
+                VideoName = existMovie.VideoName
             };
             return View(editMovie);
         }
@@ -98,7 +112,29 @@ namespace Movie_Website.Areas.Admin.Controllers
                 ExistMovie.Author = editMovieModel.Author;
                 ExistMovie.Url = editMovieModel.Url;
                 ExistMovie.MovieId = editMovieModel.MovieId;
-
+                if (editMovieModel.Image != null)
+                {
+                    var ImgName=Guid.NewGuid().ToString("N")+Path.GetExtension(editMovieModel.Image.FileName);
+                    if (ExistMovie.ImageName != null)
+                    {
+                        editMovieModel.Image.AddImageToServer(ImgName,
+                            PathTools.MovieImage, 524, 721,
+                            PathTools.MovieImageThumb, ExistMovie.ImageName);
+                    }
+                    else
+                    {
+						editMovieModel.Image.AddImageToServer(ImgName,
+							PathTools.MovieImage, 524, 721, PathTools.MovieImageThumb);
+					}
+                        
+                    ExistMovie.ImageName=ImgName;
+				}
+                if(editMovieModel.Video != null)
+                {
+					var vidname = Guid.NewGuid().ToString("N") + Path.GetExtension(editMovieModel.Video.FileName);
+					await editMovieModel.Video.AddVideoToServer(vidname, PathTools.MovieVideoServerPath, ExistMovie.VideoName);
+                    ExistMovie.VideoName=vidname;
+				}
                 context.MovieModels.Update(ExistMovie);
                 await context.SaveChangesAsync();
 
@@ -116,7 +152,13 @@ namespace Movie_Website.Areas.Admin.Controllers
         {
             var Movie = context.MovieModels.SingleOrDefault(x => x.MovieId == id);
             if (Movie == null) return NotFound();
-            context.MovieModels.Remove(Movie);
+
+            if(Movie.ImageName!=null)
+			    Tools.DeleteFile(PathTools.MovieImage.ToString(),Movie.ImageName);
+            if(Movie.VideoName!=null)
+			    Tools.DeleteFile(PathTools.MovieVideo.ToString(), Movie.VideoName);
+
+			context.MovieModels.Remove(Movie);
             context.SaveChanges();
             return Json(new { success = true });
         }
