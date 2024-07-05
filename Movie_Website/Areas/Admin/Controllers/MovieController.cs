@@ -118,8 +118,8 @@ namespace Movie_Website.Areas.Admin.Controllers
                     if (ExistMovie.ImageName != null)
                     {
                         editMovieModel.Image.AddImageToServer(ImgName,
-                            PathTools.MovieImage, 524, 721,
-                            PathTools.MovieImageThumb, ExistMovie.ImageName);
+                            PathTools.MovieImageServerPath, 524, 721,
+                            PathTools.MovieImageThumbServerPath, ExistMovie.ImageName);
                         ExistMovie.ImageName = ImgName;
                     }
                 }
@@ -148,9 +148,15 @@ namespace Movie_Website.Areas.Admin.Controllers
             if (Movie == null) return NotFound();
 
             if (Movie.ImageName != null)
-                Tools.DeleteFile(PathTools.MovieImage.ToString(), Movie.ImageName);
+            {
+                Tools.DeleteFile(PathTools.MovieImageServerPath, Movie.ImageName+".png");
+                Tools.DeleteFile(PathTools.MovieImageServerPath, Movie.ImageName + ".jpg");
+                Tools.DeleteFile(PathTools.MovieImageServerPath, Movie.ImageName + ".jfif");
+            }
             if (Movie.VideoName != null)
-                Tools.DeleteFile(PathTools.MovieVideo.ToString(), Movie.VideoName);
+            {
+                Tools.DeleteFile(PathTools.MovieVideoServerPath, Movie.VideoName+".mp4");
+            }
 
             context.MovieModels.Remove(Movie);
             context.SaveChanges();

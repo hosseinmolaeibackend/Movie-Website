@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Movie_Website.AppContext;
-using Movie_Website.Models;
-using Movie_Website.Utilities;
-using Movie_Website.Utilities.Tools;
+﻿using Movie_Website.Models;
 using Movie_Website.ViewModel;
+using Movie_Website.Utilities;
+using Microsoft.AspNetCore.Mvc;
+using Movie_Website.AppContext;
+using Movie_Website.Utilities.Tools;
 using WebApplication2.Utilities.ImageHelper;
 
 namespace Movie_Website.Areas.Admin.Controllers
@@ -45,9 +45,10 @@ namespace Movie_Website.Areas.Admin.Controllers
                 };
                 if (castVM.Image != null)
                 {
-                    var Imgname=Guid.NewGuid().ToString("N")+Path.GetExtension(castVM.Image.FileName);
-                    castVM.Image.AddImageToServer(Imgname,PathTools.CastImageServerPath,524,721,PathTools.CastImageThumbServerPath);
-                    newCast.ImageName= Imgname;
+                    var Imgname = Guid.NewGuid().ToString("N") + Path.GetExtension(castVM.Image.FileName);
+                    castVM.Image.AddImageToServer(Imgname, PathTools.CastImageServerPath,
+                        524, 721, PathTools.CastImageThumbServerPath);
+                    newCast.ImageName = Imgname;
                 }
                 _db.CastModels.Add(newCast);
                 _db.SaveChanges();
@@ -76,7 +77,7 @@ namespace Movie_Website.Areas.Admin.Controllers
         public IActionResult EditCast(int id, CastViewModel castVM)
         {
             var cast = _db.CastModels.SingleOrDefault(c => c.CastId == id);
-            if(cast == null) return NotFound();
+            if (cast == null) return NotFound();
             if (ModelState.IsValid)
             {
                 cast.Name = castVM.Name;
@@ -84,14 +85,14 @@ namespace Movie_Website.Areas.Admin.Controllers
                 cast.Age = castVM.Age;
                 if (castVM.Image != null)
                 {
-					var Imgname = Guid.NewGuid().ToString("N") + Path.GetExtension(castVM.Image.FileName);
-					castVM.Image.AddImageToServer(Imgname, PathTools.CastImageServerPath,
-                        524, 721, PathTools.CastImageThumbServerPath,cast.ImageName);
-					cast.ImageName = Imgname;
-				}
-				
+                    var Imgname = Guid.NewGuid().ToString("N") + Path.GetExtension(castVM.Image.FileName);
+                    castVM.Image.AddImageToServer(Imgname, PathTools.CastImageServerPath,
+                        524, 721, PathTools.CastImageThumbServerPath, cast.ImageName);
+                    cast.ImageName = Imgname;
+                }
 
-				_db.CastModels.Update(cast);
+
+                _db.CastModels.Update(cast);
                 _db.SaveChanges();
                 return RedirectToAction("ShowCast");
             }
@@ -100,9 +101,9 @@ namespace Movie_Website.Areas.Admin.Controllers
         #endregion
 
         #region Details
-        public IActionResult DetailCast(int id) 
+        public IActionResult DetailCast(int id)
         {
-            var CastOverView=_db.CastModels.SingleOrDefault(x=>x.CastId == id);
+            var CastOverView = _db.CastModels.SingleOrDefault(x => x.CastId == id);
             if (CastOverView == null) return NotFound();
             return View(CastOverView);
         }
@@ -110,18 +111,26 @@ namespace Movie_Website.Areas.Admin.Controllers
 
         #region Delete Cast
         [HttpDelete]
-        public IActionResult DeleteCast(int id) 
+        public IActionResult DeleteCast(int id)
         {
-            var cast= _db.CastModels.SingleOrDefault(x=> x.CastId == id);
+            var cast = _db.CastModels.SingleOrDefault(x => x.CastId == id);
             if (cast == null) return NotFound();
-			if (cast.ImageName != null)
-				Tools.DeleteFile(PathTools.MovieImage.ToString(), cast.ImageName);
+            if (cast.ImageName != null)
+            {
+                Tools.DeleteFile(PathTools.CastImageServerPath, cast.ImageName + ".png");
+                Tools.DeleteFile(PathTools.CastImageServerPath, cast.ImageName + ".jpg");
+                Tools.DeleteFile(PathTools.CastImageServerPath, cast.ImageName + ".jfif");
+
+                Tools.DeleteFile(PathTools.CastImageThumbServerPath, cast.ImageName + ".png");
+                Tools.DeleteFile(PathTools.CastImageThumbServerPath, cast.ImageName + ".jpg");
+                Tools.DeleteFile(PathTools.CastImageThumbServerPath, cast.ImageName + ".jfif");
+            }
 
             _db.CastModels.Remove(cast);
             _db.SaveChanges();
-			return Json(new { success = true });
-		}
+            return Json(new { success = true });
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
