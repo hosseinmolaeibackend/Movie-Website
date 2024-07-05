@@ -19,7 +19,7 @@
             <div class="row flexbox-center">
                 <div class="col-lg-5 text-lg-left text-center">
                     <div class="transformers-content">
-                        <img src="~/assets/img/slide2.png" alt="about">
+                        <img src="@(PathTools.MovieImage+Model.ImageName)" alt="@Model.ImageName">
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -123,8 +123,8 @@
                     <div class="details-reply">
                         <h2>Leave a Reply</h2>
                         <form asp-area="Admin" asp-controller="Comment" asp-action="CreateComment"
-                            method="post" data-ajax="true">
-                            <input type="hidden" value="@Model.MovieId"/>
+                              method="post" data-ajax="true">
+                            <input type="hidden" value="@Model.MovieId" />
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="textarea-container">
@@ -172,14 +172,30 @@
     </div>
 </section>
 
+<section class="d-flex flex-column container"> 
+    <div class="section-title pb-20">
+        <h1><i class="icofont icofont-film"></i> Trailers &amp; Videos</h1>
+        <hr />
+    </div>
+    <div class="text-center">
+        <video id="my_video"
+               class="video-js"
+               controls
+               preload="auto"
+              style="width:640px !important; height:250px !important;"
+               src="@(PathTools.MovieVideo+Model.VideoName)" 
+               />
+    </div>
+</section>
 
-@await Html.PartialAsync("~/Areas/Admin/Views/Comment/ShowComment.cshtml", Model)
+
+@*@await Html.PartialAsync("~/Areas/Admin/Views/Comment/ShowComment.cshtml", Model)*@
 
 
 
 
 @section Script {
-    <script>
+    <!--<script>
         function submitComment(id) {
             var text = ("#textComment").val();
             $.ajax(
@@ -203,5 +219,7 @@
                     }
                 });
         }
-    </script>
+    </script>-->
+
+    <script src="https://unpkg.com/video.js/dist/video.js"></script>
 }
