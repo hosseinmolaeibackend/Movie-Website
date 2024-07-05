@@ -9,6 +9,7 @@
     <title>
         Soft UI Dashboard by Creative Tim
     </title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -406,6 +407,11 @@
     <script src="~/Admin/assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="~/Admin/assets/js/plugins/chartjs.min.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const player = new Plyr('#player');
+        });
+    </script>
+    <script>
         var ctx = document.getElementById("chart-bars").getContext("2d");
 
         new Chart(ctx, {
@@ -592,6 +598,7 @@
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
     </script>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

@@ -57,5 +57,10 @@ namespace Movie_Website.Controllers
 		}
 		#endregion
 		#endregion
+
+		public IActionResult TopMovie() 
+		{
+			return View();
+		}
 	}
 }

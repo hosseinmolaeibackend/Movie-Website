@@ -21,7 +21,11 @@
     
     <a href="@Model.Url" class="btn btn-sm btn-outline-info" target="_blank">@Model.Url</a><br />
 
-    <video id="my_video"
+    <video id="player" playsinline controls data-poster="@(PathTools.MovieImage + Model.ImageName)">
+        <source src="@(PathTools.MovieVideo+Model.VideoName)" type="video/mp4" />
+        <!-- Add more source elements for different formats if needed -->
+    </video>
+    <!--<video id="my_video"
            class="video-js"
            controls
            preload="auto"
@@ -29,7 +33,7 @@
            width="640"
            height="268"
            poster="@(PathTools.MovieImage+Model.ImageName)"
-           data-setup="{}"/>
+           data-setup="{}"/>-->
 
     <a asp-area="Admin" asp-controller="Movie" asp-action="Edit" asp-route-id="@Model.MovieId" class="btn btn-warning">Edit</a>
 </div>
