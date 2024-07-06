@@ -11,6 +11,15 @@
 			= Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/content/images/cast/thumb/");
         #endregion
 
+        #region News image
+        public static string NewsImage = "/content/images/news/image/";
+        public static string NewsImageServerPath
+            = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/content/images/news/image/");
+        public static string NewsImageThumb = "/content/images/news/thumb/";
+        public static string NewsImageThumbServerPath
+            = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/content/images/news/thumb/");
+        #endregion
+
         #region Videos
         public static string MovieImage = "/content/images/movie/image/";
         public static string MovieImageServerPath

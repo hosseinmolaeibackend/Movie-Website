@@ -1,0 +1,15 @@
+﻿@model NewsModel
+
+<h2>@Model.Title</h2>
+
+<img src="@(PathTools.NewsImage+Model.ImageNews)" alt="@Model.ImageNews" width="600px" height="300px" />
+<br />
+<p>
+    @Html.Raw(Model.Description)
+</p>
+<br />
+
+<p>
+    @Model.CreateTime.ToString("t")
+</p>
+

@@ -1,0 +1,30 @@
+﻿@model List<NewsModel>
+
+
+
+<a asp-area="Admin" asp-controller="News" asp-action="CreateNews" class="btn btn-outline-success ms-4">Create</a>
+<table class="table table-hover ps-2">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Date</th>
+            <th scope="col">Utilities</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id">
+                <th scope="row">@item.Id</th>
+                <td>@item.Title</td>
+                <td>@item.CreateTime</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="News" asp-action="DetailNews" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
+                    <a asp-area="Admin" asp-controller="News" asp-action="EditNews" asp-route-id="@item.Id" class="btn btn-outline-warning">Edit</a>
+                    <a onclick="deleteItem(@item.Id)" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

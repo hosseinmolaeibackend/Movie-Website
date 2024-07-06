@@ -15,6 +15,7 @@ namespace Movie_Website.AppContext
         public DbSet<CommentModel> CommentModels { get; set; }
         public DbSet<CategoryModel> CategoryModels { get; set; }
         public DbSet<CastModel> CastModels { get; set; }
+        public DbSet<NewsModel> NewsModels { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,6 +29,10 @@ namespace Movie_Website.AppContext
                 .HasMany(u => u.like)
                 .WithOne(l => l.User)
                 .HasForeignKey(u => u.UserId);
+            modelBuilder.Entity<UserModel>()
+                .HasMany(u=>u.news)
+                .WithOne(n=>n.userModel)
+                .HasForeignKey(n=>n.UserId);
 
             #endregion
 

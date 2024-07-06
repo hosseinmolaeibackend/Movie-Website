@@ -24,5 +24,6 @@ namespace Movie_Website.Models
 
         public ICollection<CommentModel> comments { get; set; } = default!;
         public ICollection<LikeModel> like { get; set; } = default!;
+        public ICollection<NewsModel> news { get; set; }
     }
 }

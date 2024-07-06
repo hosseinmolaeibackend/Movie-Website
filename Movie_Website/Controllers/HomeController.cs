@@ -58,8 +58,9 @@ namespace Movie_Website.Controllers
 		#endregion
 		#endregion
 
-		public IActionResult TopMovie() 
+		public IActionResult LatestNews() 
 		{
+			var News = "";
 			return View();
 		}
 	}

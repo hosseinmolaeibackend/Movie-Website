@@ -1,0 +1,19 @@
+﻿@model NewsViewModel
+
+
+<form asp-area="Admin" asp-controller="News" asp-action="CreateNews" method="post" enctype="multipart/form-data">
+  
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for="Image" class="form-control" accept="image/png, image/jpeg">
+    </div>
+    <div class="mb-3">
+        <label for="Title" class="form-label">Title News</label>
+        <input asp-for="Title" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="MovieDescription" class="form-label">MovieDescription</label>
+        <textarea id="tiny" asp-for="Description" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-success"> Create </button>
+</form>
