@@ -16,10 +16,10 @@ namespace Movie_Website.Controllers
 		{
 			TempData["Index"] = "active";
 
-			
-			var c= _db.MovieMedCastModels.Include(m=>m.MovieModel).Include(c=>c.CastModel).ToList();
 
-			var a = _db.MovieModels.Include(c=>c.MovieMedCasts).ThenInclude(x=>x.CastModel).ToList();
+			var c = _db.MovieMedCastModels.Include(m => m.MovieModel).Include(c => c.CastModel).ToList();
+
+			var a = _db.MovieModels.Include(c => c.MovieMedCasts).ThenInclude(x => x.CastModel).ToList();
 			return View(a);
 		}
 
@@ -58,10 +58,21 @@ namespace Movie_Website.Controllers
 		#endregion
 		#endregion
 
-		public IActionResult LatestNews() 
+
+		#region Show news
+		public IActionResult LatestNews()
 		{
-			var News = "";
-			return View();
+			TempData["LatestNews"] = "active";
+			var News = _db.NewsModels.ToList();
+			return View(News);
 		}
+		#region Detail News
+		public IActionResult DetailsNews(int id)
+		{
+			var News = _db.NewsModels.SingleOrDefault(n => n.Id == id);
+			return View(News);
+		}
+		#endregion
+		#endregion
 	}
 }
