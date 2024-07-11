@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Movie_Website.Models;
+using DataLayer.Models;
 
 namespace Movie_Website.AppContext
 {
@@ -30,9 +30,9 @@ namespace Movie_Website.AppContext
                 .WithOne(l => l.User)
                 .HasForeignKey(u => u.UserId);
             modelBuilder.Entity<UserModel>()
-                .HasMany(u=>u.news)
-                .WithOne(n=>n.userModel)
-                .HasForeignKey(n=>n.UserId);
+                .HasMany(u => u.news)
+                .WithOne(n => n.userModel)
+                .HasForeignKey(n => n.UserId);
 
             #endregion
 

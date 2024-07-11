@@ -1,11 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Movie_Website._ِDto
+namespace DataLayer.Dto
 {
 	public class MovieDto
 	{
-		public int MovieId { get; set; }
 		
+		public int MovieId { get; set; }
+	
 		public string MovieTitle { get; set; } = default!;
 		
 		public string MovieDescription { get; set; } = default!;
@@ -15,8 +21,6 @@ namespace Movie_Website._ِDto
 
 		public string? ImageName { get; set; }
 
-		
 		public string VideoName { get; set; } = default!;
-
 	}
 }

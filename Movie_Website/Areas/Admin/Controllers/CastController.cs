@@ -1,4 +1,4 @@
-﻿using Movie_Website.Models;
+﻿using DataLayer.Models;
 using Movie_Website.ViewModel;
 using Movie_Website.Utilities;
 using Microsoft.AspNetCore.Mvc;

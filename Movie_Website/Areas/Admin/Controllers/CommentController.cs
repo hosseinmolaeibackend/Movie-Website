@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movie_Website.AppContext;
-using Movie_Website.Models;
+using DataLayer.Models;
 
 namespace Movie_Website.Areas.Admin.Controllers
 {

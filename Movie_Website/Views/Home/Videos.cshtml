@@ -1,9 +1,6 @@
-﻿@using System.Web
-@model List<MovieModel>
+﻿@model List<MovieModel>
 
-@{
-    var cardGroups = Model.Chunk(3);
-}
+
 <section class="breadcrumb-area">
     <div class="container">
         <div class="row">
@@ -15,24 +12,31 @@
         </div>
     </div>
 </section>
-
 <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach(var item in Model)
+        @if ((Model.Count != 0)||(Model!=null))
         {
-            <div class="col">
-                <div class="card">
-                    <img src="@(PathTools.MovieImageThumb+item.ImageName)" class="card-img-top" alt="@item.ImageName">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.MovieTitle</h5>
-                        <p class="card-text">@Html.Raw(item.MovieDescription.Substring(0,10))</p>
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MovieId" class="theme-btn theme-btn2">Watch Movie</a>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary">comment: @item.comments.Count()</small>
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card">
+                        <img src="@(PathTools.MovieImageThumb+item.ImageName)" class="card-img-top" alt="@item.ImageName">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.MovieTitle</h5>
+                            <p class="card-text">@Html.Raw(item.MovieDescription.Substring(0, 10))</p>
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.MovieId" class="theme-btn theme-btn2">Watch Movie</a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">comment: </small>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
+        else
+            {
+                <p>no films</p>
+            }
+
     </div>
 </div>

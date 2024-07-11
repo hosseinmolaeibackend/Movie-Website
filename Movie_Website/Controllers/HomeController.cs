@@ -1,3 +1,4 @@
+using DataLayer.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie_Website.AppContext;
@@ -7,27 +8,31 @@ namespace Movie_Website.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ApplicationContext _db;
-		public HomeController(ApplicationContext context)
+		private readonly IMovieService _movieService;
+		private readonly INewsService _newsService;
+		public HomeController(ApplicationContext context,IMovieService movie, INewsService newsService)
 		{
 			_db = context;
+			_movieService = movie;
+			_newsService = newsService;
 		}
 		[Route("/")]
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
 			TempData["Index"] = "active";
 
 
-			var c = _db.MovieMedCastModels.Include(m => m.MovieModel).Include(c => c.CastModel).ToList();
-
+			//var c = _db.MovieMedCastModels.Include(m => m.MovieModel).Include(c => c.CastModel).ToList();
+			// i use thiss
 			var a = _db.MovieModels.Include(c => c.MovieMedCasts).ThenInclude(x => x.CastModel).ToList();
-			return View(a);
+			var movie = await _movieService.GetMovieForSlider();
+
+			return View(movie);
 		}
 
 		public IActionResult Details(int id)
 		{
-			var Movie = _db.MovieModels.Include(x => x.comments).ThenInclude(x => x.User).SingleOrDefault(p => p.MovieId == id);
-			if (Movie == null) return NotFound();
-			return View(Movie);
+			return View(_movieService.GetMovieById(id));
 		}
 
 		public IActionResult News()
@@ -38,8 +43,7 @@ namespace Movie_Website.Controllers
 		public IActionResult Videos()
 		{
 			TempData["Videos"] = "active";
-			var videos = _db.MovieModels.Include(x => x.comments).ToList();
-			return View(videos);
+			return View(_movieService.GetAllVideos());
 		}
 
 		#region show celebrities to users
@@ -63,14 +67,12 @@ namespace Movie_Website.Controllers
 		public IActionResult LatestNews()
 		{
 			TempData["LatestNews"] = "active";
-			var News = _db.NewsModels.ToList();
-			return View(News);
+			return View(_newsService.GetAllNews());
 		}
 		#region Detail News
 		public IActionResult DetailsNews(int id)
 		{
-			var News = _db.NewsModels.SingleOrDefault(n => n.Id == id);
-			return View(News);
+			return View(_newsService.GetNewsById(id));
 		}
 		#endregion
 		#endregion
