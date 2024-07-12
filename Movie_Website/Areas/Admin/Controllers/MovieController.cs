@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Movie_Website.AppContext;
-using Movie_Website.Models;
+using DataLayer.Models;
 using Movie_Website.Utilities;
 using Movie_Website.ViewModel;
 using WebApplication2.Utilities.ImageHelper;

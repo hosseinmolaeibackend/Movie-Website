@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Movie_Website.AppContext;
-using Movie_Website.Models;
+using DataLayer.Models;
 using Movie_Website.Utilities.enctype;
 using Movie_Website.ViewModel;
 using System.Security.Claims;

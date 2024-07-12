@@ -1,6 +1,9 @@
+using DataLayer.IServices;
+using DataLayer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Movie_Website.AppContext;
+using Movie_Website.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,9 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("defult"));
 });
+
+builder.Services.AddScoped<IMovieService,MovieService>();
+builder.Services.AddTransient<INewsService,NewsService>();
 
 builder.Services.AddAuthentication(option =>
 {
