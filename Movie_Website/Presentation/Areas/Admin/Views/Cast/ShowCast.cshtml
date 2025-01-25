@@ -1,0 +1,67 @@
+﻿@using Movie_Website.Domain.Models.Model
+
+@model List<CastModel>
+
+<a asp-area="Admin" asp-controller="Cast" asp-action="CreateCast" class="btn btn-outline-success ms-4">Create</a>
+<table class="table table-hover ps-2">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Bio</th>
+            <th scope="col">Age</th>
+            <th scope="col">Utilities</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.CastId">
+                <th scope="row">@item.CastId</th>
+                <th scope="row">@item.Name</th>
+                @if (item.Bio.Length > 30)
+                {
+                    <td>
+                        @item.Bio.Substring(1,10)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.Bio
+                    </td>
+                }
+
+                <td>@item.Age</td>
+                
+                <td>
+                    <a asp-area="Admin" asp-controller="Cast" asp-action="DetailCast" asp-route-id="@item.CastId" class="btn btn-outline-primary">Details</a>
+                    <a asp-area="Admin" asp-controller="Cast" asp-action="EditCast" asp-route-id="@item.CastId" class="btn btn-outline-warning">Edit</a>
+                    <a onclick="deleteItem(@item.CastId)" class="btn btn-outline-danger">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Script {
+    <script>
+        function deleteItem(id) {
+            $.ajax({
+                url: '/Admin/Cast/DeleteCast/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    if (result.success) {
+                        console.info("success")
+                        $("#" + id).fadeOut();
+                    }
+                    else {
+                        console.error("NoT requierd")
+                    }
+                }
+            });
+        }
+    </script>
+}

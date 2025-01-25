@@ -1,0 +1,19 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Movie_Website.Domain.Models.Model
+{
+	public class LikeModel
+	{
+		[Key]
+		public int LikeId { get; set; }
+		[Required]
+		public int MovieId { get; set; }
+		[Required]
+		public int UserId { get; set; }
+
+
+		public UserModel User { get; set; } = default!;
+		public MovieModel Movie { get; set; } = default!;
+
+	}
+}

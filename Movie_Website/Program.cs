@@ -1,20 +1,38 @@
-using DataLayer.IServices;
-using DataLayer.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Movie_Website.AppContext;
-using Movie_Website.Services;
+using Microsoft.Extensions.Options;
+using Movie_Website.Application.Services.IServices;
+using Movie_Website.Application.Services.IServicesAdmin;
+using Movie_Website.Infrastructure.AppContext;
+using Movie_Website.Infrastructure.Services.Service;
+using Movie_Website.Infrastructure.Services.ServicesAdmin;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+	ContentRootPath = Directory.GetCurrentDirectory(),
+	WebRootPath = "Presentation/wwwroot"
+});
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
+
+builder.Services.AddControllersWithViews()
+	.AddRazorOptions(options =>
+	{
+		options.ViewLocationFormats.Add("/Presentation/Views/{1}/{0}.cshtml");
+		options.ViewLocationFormats.Add("/Presentation/Views/Shared/{0}.cshtml");
+		options.AreaViewLocationFormats.Add("/Presentation/Areas/{2}/Views/{1}/{0}.cshtml");
+		options.AreaViewLocationFormats.Add("/Presentation/Areas/{2}/Views/Shared/{0}.cshtml");
+	});
+
+
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("defult"));
 });
 
+builder.Services.AddScoped<ICastServiece, CastService>();
 builder.Services.AddScoped<IMovieService,MovieService>();
 builder.Services.AddTransient<INewsService,NewsService>();
 
@@ -35,6 +53,7 @@ builder.Services.AddAuthentication(option =>
 
 var app = builder.Build();
 
+app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
