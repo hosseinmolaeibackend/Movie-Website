@@ -304,7 +304,7 @@
     <Content Include="Presentation\wwwroot\assets\img\cast\cast6.png" />
     <Content Include="Presentation\wwwroot\assets\img\cast\cast7.png" />
     <Content Include="Presentation\wwwroot\assets\img\favcion.png" />
-    <Content Include="Presentation\wwwroot\assets\img\footer-bg.png" />
+    <Content Include="Presentation\wwwroot\assets\css\footer-bg.png" />
     <Content Include="Presentation\wwwroot\assets\img\hero-area.png" />
     <Content Include="Presentation\wwwroot\assets\img\loader.gif" />
     <Content Include="Presentation\wwwroot\assets\img\logo.png" />

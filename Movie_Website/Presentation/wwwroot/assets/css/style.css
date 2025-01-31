@@ -725,7 +725,7 @@ hr {
 --------- footer AREA CSS START --------
 -----------------------------------*/
 .footer {
-	background: url('../img/footer-bg.png') no-repeat bottom center / cover;
+	background: url('~/footer-bg.png') no-repeat bottom center / cover;
     position: relative;
 	padding: 90px 0 30px;
 }

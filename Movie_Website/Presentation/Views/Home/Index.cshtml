@@ -39,10 +39,12 @@
 								</div>
 								<h4>180k voters</h4>
 							</div>
+							<h3>Cast:</h3>
+							<div class="slide-cast">
 							@foreach(var i in item.MovieMedCasts)
 							{
-										<h3>Cast:</h3>
-									<div class="slide-cast">
+										
+									
 										<div class="single-slide-cast">
 										@if (i.CastModel.ImageName != "")
 										{
@@ -50,12 +52,11 @@
 											width="50px" height="50px"/>
 										}
 										</div>
-										<div class="single-slide-cast text-center">
-											5+
-										</div>
-									</div>
 							}
-							
+								<div class="single-slide-cast text-center">
+									5+
+								</div>
+							</div>
 						
 							<div class="slide-trailor">
 								<h3>Watch Trailer</h3>
@@ -184,6 +185,8 @@
 		</div>
 	</div>
 </section>
+
+
 
 @section Script {
 	<script>

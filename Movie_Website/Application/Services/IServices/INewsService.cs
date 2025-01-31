@@ -10,7 +10,10 @@ namespace Movie_Website.Application.Services.IServices
 	public interface INewsService
 	{
 		public Task<List<NewsModel>> GetAllNews();
+
 		public NewsModel GetNewsById(int id);
+
+		public bool DeletedNews(int id);
 
 	}
 }

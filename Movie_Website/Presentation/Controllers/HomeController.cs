@@ -26,7 +26,6 @@ namespace Movie_Website.Presentation.Controllers
 			// i use thiss
 			var a = _db.MovieModels.Include(c => c.MovieMedCasts).ThenInclude(x => x.CastModel).ToList();
 			var movie = await _movieService.GetMovieForSlider();
-
 			return View(movie);
 		}
 

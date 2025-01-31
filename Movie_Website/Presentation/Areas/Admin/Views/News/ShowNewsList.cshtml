@@ -19,7 +19,7 @@
         {
             <tr id="@item.Id">
                 <th scope="row">@item.Id</th>
-                <td>@item.Title</td>
+                <td class="text-wrap">@item.Title</td>
                 <td>@item.CreateTime</td>
                 <td>
                     <a asp-area="Admin" asp-controller="News" asp-action="DetailNews" asp-route-id="@item.Id" class="btn btn-outline-primary">Details</a>
@@ -30,3 +30,22 @@
         }
     </tbody>
 </table>
+@section Script {
+    <script>
+        function deleteItem(id) {
+            $.ajax({
+                url: '/Admin/News/DeleteNews/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    if (result.success) {
+                        console.info("success")
+                        $("#" + id).fadeOut();
+                    }
+                    else {
+                        console.error("NoT requierd")
+                    }
+                }
+            });
+        }
+    </script>
+}

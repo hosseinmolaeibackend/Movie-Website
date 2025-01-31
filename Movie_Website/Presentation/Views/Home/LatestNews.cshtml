@@ -29,12 +29,13 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-12" style="margin-bottom:5rem !important;">
 
 				@foreach(var item in await Model)
 				{
 					<div class="single-news">
-						<div class="news-bg-1" style="background: url(@(PathTools.NewsImage+item.ImageNews)) !important;"></div>
+						<div class="news-bg-1" style="background: url(@(PathTools.NewsImage+item.ImageNews)) !important;
+background-repeat:no-repeat;"></div>
 						<div class="news-date">
 							<h2><span>@DateTimeConvert.MonthToString(item.CreateTime)</span> @item.CreateTime.Day</h2>
 							<h1>@item.CreateTime.Year</h1>

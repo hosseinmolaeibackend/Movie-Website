@@ -106,10 +106,16 @@ namespace Movie_Website.Presentation.Areas.Admin.Controllers
 		#region deleted News
 		public IActionResult DeleteNews(int id)
 		{
-			return Json(new
+
+			if (_newsService.DeletedNews(id))
 			{
-				success = true
-			});
+				return Json(new
+				{
+					success = true
+				});
+			}
+			return Json(new { success = false });
+		
 		}
 		#endregion
 
