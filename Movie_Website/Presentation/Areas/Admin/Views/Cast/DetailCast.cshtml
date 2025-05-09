@@ -1,0 +1,16 @@
+﻿@using Movie_Website.Domain.Models.Model
+
+@using Movie_Website.Infrastructure.Services.Utilities
+
+@model CastModel
+
+<img src="@(PathTools.CastImageThumb+Model.ImageName)" alt="@Model.ImageName" />
+
+<h3>@Model.Name</h3>
+
+<p>@Model.Bio</p>
+
+<span>Age: @Model.Age</span>
+<br />
+
+<a asp-area="Admin" asp-controller="Cast" asp-action="EditCast" asp-route-id="@Model.CastId" class="btn btn-outline-warning">Edit</a>

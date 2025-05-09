@@ -13,23 +13,27 @@ The Movie Website project is a web application designed to manage and display mo
 - Entity Framework Core
 - Razor Pages
 - Bootstrap
+- Clean Architecture
 
 🚀 **Setup Instructions:**
 1. Clone the repository.
-2. Restore NuGet packages with `dotnet restore`.
-3. Update the database with `dotnet ef database update`.
-4. Run the application with `dotnet run`.
+2. Switch to the `dev` branch with `git checkout dev`.
+3. Restore NuGet packages with `dotnet restore`.
+4. Update the database with `dotnet ef database update`.
+5. Run the application with `dotnet run`.
 
 📁 **Project Structure:**
-- **AppContext**: Database context
-- **Controllers**: HTTP request handlers
-- **Migrations**: Database migrations
-- **Models**: Data models
-- **ViewComponents**: Reusable UI components
-- **Views**: Razor views
-- **wwwroot**: Static files
+- **Core**: Contains domain entities and interfaces.
+- **Application**: Business logic and application services.
+- **Infrastructure**: Data access and external services implementation.
+- **Presentation**: Razor Pages and UI logic.
+- **AppContext**: Database context.
+- **Migrations**: Database migrations.
+- **ViewComponents**: Reusable UI components.
+- **Views**: Razor views.
+- **wwwroot**: Static files.
 
 📄 **License:**
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-For more details, visit the [GitHub repository](https://github.com/hosseinmolaeibackend/Movie-Website/tree/master/Movie_Website).
+For more details, visit the [GitHub repository](https://github.com/hosseinmolaeibackend/Movie-Website/tree/dev).

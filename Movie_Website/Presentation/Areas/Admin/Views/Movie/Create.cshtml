@@ -1,0 +1,31 @@
+﻿@using Movie_Website.Presentation.ViewModels
+@model MovieViewModel
+
+
+<form asp-area="Admin" asp-controller="Movie" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="Video" class="form-label">Video</label>
+        <input asp-for="Video" class="form-control" accept="video/mp4,video/x-m4v,video/*">
+    </div>
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input asp-for="Image" class="form-control" accept="image/png, image/jpeg">
+    </div>
+    <div class="mb-3">
+        <label for="MovieTitle" class="form-label">MovieTitle</label>
+        <input asp-for="MovieTitle" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Author" class="form-label">Author</label>
+        <input asp-for="Author" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="Url" class="form-label">Url</label>
+        <input asp-for="Url" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="MovieDescription" class="form-label">MovieDescription</label>
+        <textarea id="tiny" asp-for="MovieDescription" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-outline-success"> Create </button>
+</form>
